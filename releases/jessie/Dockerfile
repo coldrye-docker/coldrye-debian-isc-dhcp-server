@@ -1,0 +1,15 @@
+FROM coldrye/debian-tini:0-9-0-jessie-latest
+
+RUN set -ex \
+    && export APT_LISTCHANGES_FRONTEND=none \
+    && apt-get update \
+    && apt-get -q -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" -t jessie-backports install isc-dhcp-server \
+    && apt-get clean \
+    && rm -Rf /var/lib/apt/lists/* 2>/dev/null
+
+VOLUME ["/etc/dhcp"]
+
+ENV PORT=67 REPLY=255.255.255.255 PROTO=4
+
+CMD /usr/sbin/dhcpd -d -p $PORT -$PROTO -s $REPLY -cf /etc/dhcp/dhcpd.conf -lf /etc/dhcp/dhcp.leases -tf /etc/dhcp/dhcp.trace
+
