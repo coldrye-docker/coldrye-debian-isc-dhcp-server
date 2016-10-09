@@ -11,5 +11,5 @@ VOLUME ["/etc/dhcp"]
 
 ENV PORT=67 REPLY=255.255.255.255 PROTO=4
 
-CMD /usr/sbin/dhcpd -d -p $PORT -$PROTO -s $REPLY -cf /etc/dhcp/dhcpd.conf -lf /etc/dhcp/dhcp.leases -tf /etc/dhcp/dhcp.trace
+CMD /usr/sbin/dhcpd -d -p $PORT -$PROTO -s $REPLY -cf /etc/dhcp/dhcpd.conf -lf /etc/dhcp/dhcpd.leases -tf /etc/dhcp/dhcpd.trace
 
