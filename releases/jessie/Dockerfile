@@ -1,4 +1,4 @@
-FROM coldrye/debian-tini:0-9-0-jessie-latest
+FROM coldrye/debian-tini:0-14-0-jessie-latest
 
 RUN set -ex \
     && export APT_LISTCHANGES_FRONTEND=none \
@@ -11,5 +11,5 @@ VOLUME ["/etc/dhcp"]
 
 ENV PORT=67 REPLY=255.255.255.255 PROTO=4
 
-CMD /usr/sbin/dhcpd -d -p $PORT -$PROTO -s $REPLY -cf /etc/dhcp/dhcpd.conf -lf /etc/dhcp/dhcpd.leases -tf /etc/dhcp/dhcpd.trace
+CMD rm -f /var/run/dhcpd.pid && /usr/sbin/dhcpd -d -p $PORT -$PROTO -s $REPLY -cf /etc/dhcp/dhcpd.conf -lf /etc/dhcp/dhcpd.leases -tf /etc/dhcp/dhcpd.trace
 
